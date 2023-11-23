@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import Swal from "sweetalert2";
 
 const AddQuestionForm = () => {
   const [formData, setFormData] = useState({
@@ -27,14 +27,20 @@ const AddQuestionForm = () => {
     },
       body: JSON.stringify(formData),
       });
-
+      
+      Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Question inserted Successfully",
+      });
     
-      if (response.ok) {
-        console.log("Question Added Successfully");
-      } else {
-        console.error('Already added this question');
-      }
+      
     } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Errot",
+          text: "Question inserted Already",
+      });
       console.error('Error during API call:', error);
     }
   };

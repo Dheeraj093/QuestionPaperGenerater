@@ -142,7 +142,14 @@ const generateQuestionPaper = async () => {
       });
       const questionPaper = response.data;
       setGeneratedQuestionPaper(questionPaper.data);
+      
     }
+   ;
+   Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Question Paper Generated Successfully",
+      });
    
   } catch (error) {
     console.error('Error during API call:', error.response.data.message);
