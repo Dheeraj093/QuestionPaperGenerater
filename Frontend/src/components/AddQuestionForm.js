@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+
 
 const AddQuestionForm = () => {
   const [formData, setFormData] = useState({
@@ -19,12 +21,11 @@ const AddQuestionForm = () => {
 
   const addQuestion = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+      const response = await axios.post('/api/add', formData, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+      body: JSON.stringify(formData),
       });
 
     
