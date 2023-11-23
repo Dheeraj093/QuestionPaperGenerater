@@ -3,6 +3,7 @@ const app = express();
 const connectDB = require("./config/db");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const addQuestion= require("./Routes/Question.js");
 
 dotenv.config();
 
@@ -11,9 +12,10 @@ app.use(express.json());
 app.use(cors());
 
 
-const  addQuestion= require("./Routes/Question.js");
+
 // const dotenv = require("./");
-app.listen(5000,console.log("Server started on PORT 5000"))
+const PORT = process.env.PORT || 5000
+app.listen(PORT ,console.log("Server started on PORT", PORT))
 
 app.get("/" ,(req,res)=>{
     res.send("API is running");
