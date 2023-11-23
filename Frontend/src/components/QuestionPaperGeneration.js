@@ -117,7 +117,7 @@ const generateQuestionPaper = async () => {
     console.log(criteria)
 
     if (criteria.paperType === 'Deafult') {
-      const response = await axios.post('/api/getQuestionPaper', criteria, {
+      const response = await axios.post('https://questionpapergenerater.onrender.com/api/getQuestionPaper', criteria, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -126,7 +126,7 @@ const generateQuestionPaper = async () => {
       setGeneratedQuestionPaper(questionPaper.data);
       console.log(questionPaper.data);
     } else if(criteria.paperType === 'ByNumber'){
-        const response = await axios.post('/api/getQuestionPaperbyNumberOFques', criteria, {
+        const response = await axios.post('https://questionpapergenerater.onrender.com/api/getQuestionPaperbyNumberOFques', criteria, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -135,7 +135,7 @@ const generateQuestionPaper = async () => {
       setGeneratedQuestionPaper(questionPaper.data);
       console.log(questionPaper.data);
     } else  {
-      const response = await axios.post('/api/getQuestionPaperByMarks', criteria, {
+      const response = await axios.post('https://questionpapergenerater.onrender.com/api/getQuestionPaperByMarks', criteria, {
         headers: {
           'Content-Type': 'application/json',
         },
