@@ -4,6 +4,7 @@ const connectDB = require("./config/db");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const addQuestion= require("./Routes/Question.js");
+const path = require("path");
 
 dotenv.config();
 
