@@ -1,0 +1,19 @@
+.task {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 250px;
+    padding-right: 250px;
+    margin: 10px 0px;
+}
+
+.headings {
+    display: flex;
+    flex-direction: column;
+}
+
+.subheadings {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 50px;
+}
