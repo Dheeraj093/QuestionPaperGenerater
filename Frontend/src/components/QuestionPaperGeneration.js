@@ -60,7 +60,7 @@ const styles = {
 
 const QuestionPaperGeneration = () => {
   const [criteria, setCriteria] = useState({
-    subject: '',
+    subject: 'Mathematics',
     totalMarks: 100,
     easyPercentage: 20,
     mediumPercentage: 50,
