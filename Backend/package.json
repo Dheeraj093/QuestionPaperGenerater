@@ -4,9 +4,9 @@
   "description": "Question Paper Generator",
   "main": "server.js",
       "scripts": {
-        "start": "node server.js",
-        "dev": "nodemon server.js",
-        "build":"npm install && npm install --prefix frontend && npm run build --prefix frontend"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon server.js",
+        "dev": "nodemon server.js"
     },
 
   "author": "Dheeraj",
