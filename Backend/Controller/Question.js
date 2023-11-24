@@ -45,11 +45,13 @@ const getQuestionPaper =async(req,res)=>{
     const mediumMarks = (mediumPer / 100) * total;
     const hardMarks = (hardPer / 100) * total;
 
-    const hardQuestion = hardMarks/5;
+    const hardQuestion = Math.floor(hardMarks/5);
     const remender1 = hardMarks%5;
-    const mediumQuestion = (mediumMarks+ remender1 )/2;
+    const mediumQuestion = Math.floor((mediumMarks+ remender1 )/2);
     const remender2 = (mediumMarks+ remender1 )%2;
-    const easyQuestion = (easyMarks+remender2)/1;
+    const easyQuestion = Math.floor((easyMarks+remender2)/1);
+
+    // console.log(hardQuestion,mediumQuestion,easyQuestion)
     
 
     // for easy question 
@@ -75,9 +77,14 @@ const getQuestionPaper =async(req,res)=>{
       { $sample: { size: hardQuestion } },
     ];
 
-    const Data3 = await Question.aggregate(pipeline3);
+    const Data3 = await Question.aggregate(pipeline3)
 
-    const Data = [...Data1,...Data2,...Data3]
+    const Data = [...Data3,...Data2,...Data1]
+
+    if(Data1.length*1 + Data2.length*2 + Data3.length*5 !== total ){
+        throw new Error("Questions of This Subject is less than your requirement");
+    }
+
     res.json({
            success: true,
            message: 'Question fetched!!' ,
@@ -181,8 +188,12 @@ const getQuestionPaperByMarks =async(req,res)=>{
       ...item,
       marks: byQuestionMarks.hard,
     }));
+   
+    if(Data1.length*byQuestionMarks.easy + Data2.length*byQuestionMarks.medium + Data3.length*byQuestionMarks.hard !== total ){
+        throw new Error("Questions of This Subject is less than your requirement");
+    }
 
-    const Data = [...newData1,...newData2,...newData3]
+    const Data = [...newData3,...newData2,...newData1]
     // console.log(Data)
     res.json({
            success: true,
@@ -226,11 +237,11 @@ const getQuestionPaperbyNumberOFques =async(req,res)=>{
     const mediumMarks = (mediumPer / 100) * total;
     const hardMarks = (hardPer / 100) * total;
 
-    const hardQuestionMarks = hardMarks/byNumber.hard;
+    const hardQuestionMarks = Math.floor(hardMarks/byNumber.hard);
     const remender1 = hardMarks%byNumber.hard;
-    const mediumQuestionMarks = (mediumMarks+ remender1 )/byNumber.medium;
+    const mediumQuestionMarks = Math.floor((mediumMarks+ remender1 )/byNumber.medium);
     const remender2 = (mediumMarks+ remender1 )%byNumber.medium;
-    const easyQuestionMarks = (easyMarks+remender2)/byNumber.easy;
+    const easyQuestionMarks = Math.floor((easyMarks+remender2)/byNumber.easy);
     
     if(easyQuestionMarks > mediumQuestionMarks || easyQuestionMarks > hardQuestionMarks ){
        throw new Error("Marks of a Easy Question is not Possible greater than Medium or Hard");
@@ -280,7 +291,13 @@ const getQuestionPaperbyNumberOFques =async(req,res)=>{
       marks: hardQuestionMarks,
     }));
 
-    const Data = [...newData1,...newData2,...newData3]
+
+    if(newData1.length*easyQuestionMarks + newData2.length*mediumQuestionMarks + newData3.length*hardQuestionMarks !== total ){
+        throw new Error("Questions of This Subject is less than your requirement");
+    }
+
+
+    const Data = [...newData3,...newData2,...newData1]
     res.json({
            success: true,
            message: 'Question fetched!!' ,

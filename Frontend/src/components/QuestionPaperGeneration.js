@@ -236,7 +236,7 @@ const generateQuestionPaper = async () => {
           <label htmlFor="paperType" style={styles.label} >Paper Type:</label>
           <select id="paperType" name="paperType" value={criteria.paperType} onChange={handleChange} style={styles.input} >
             <option value="Deafult">Deafult</option>
-            <option value="ByNumber">By Number</option>
+            <option value="ByNumber">By Number of Questions</option>
             <option value="ByQuestionMarks">By Question Marks</option>
           </select>
         </div>
