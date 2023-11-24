@@ -1,16 +1,16 @@
 const Question = require("../Model/Question");
 
 const addQuestion = async(req,res) =>{
-     const { question, subject, topic, difficulty, marks } = req.body;
+  try {
+    const { question, subject, topic, difficulty, marks } = req.body;
+ 
      if (!question || !subject || !topic || !difficulty || !marks) {
       throw new Error("Please Fill All Entry.");
     }
-
-  try {
      const ques = await Question.findOne({ question });
       // console.log(ques);
       if (ques) {
-        res.status(400).json({ error: 'Question Already Exists' });
+        throw new Error("Question Already Exists");
       }
       else{
           const newQuestion = new Question({ question, subject, topic, difficulty, marks });
@@ -18,12 +18,13 @@ const addQuestion = async(req,res) =>{
           res.json({ success: true, message: 'Question inserted successfully' });
       }
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    // console.error(error);
+    res.status(400).json({ success: false, message: error.message});
   }
 }
 
 
+// ------------------------------- By Deafult easy question 1 marks, medium question 2 marks, hard question 3 marks-----------               
 
 const getQuestionPaper =async(req,res)=>{
 
@@ -33,6 +34,7 @@ const getQuestionPaper =async(req,res)=>{
     if (!subject || !totalMarks || !easyPercentage || !mediumPercentage || !hardPercentage) {
       throw new Error("Please Fill All Entry.");
     }
+    console.log("subject", subject)
 
 
     const easyPer = Number(easyPercentage);
@@ -54,8 +56,6 @@ const getQuestionPaper =async(req,res)=>{
     const remender2 = (mediumMarks+ remender1 )%2;
     const easyQuestion = Math.floor((easyMarks+remender2)/1);
 
-    // console.log(hardQuestion,mediumQuestion,easyQuestion)
-    
 
     // for easy question 
     const pipeline1 = [
@@ -93,7 +93,7 @@ const getQuestionPaper =async(req,res)=>{
            message: 'Question fetched!!' ,
            data:Data
       });
-          // console.log(filteredQuestions)
+          
   } catch (error) {
      res.status(400).json({ success: false, message: error.message});
   }
@@ -104,7 +104,7 @@ const getQuestionPaper =async(req,res)=>{
 
 
 
-/// -------------------------------if Marks is given --------------------------------------------     -
+/// -------------------------------if Marks is given for easy, medium and hard questions--------------------------------------------     -
 
 
 const getQuestionPaperByMarks =async(req,res)=>{
@@ -134,7 +134,7 @@ const getQuestionPaperByMarks =async(req,res)=>{
       throw new Error("Please provide All percentage sum is 100");
     }
 
-    // console.log(byQuestionMarks)
+    
 
     const easyMarks = (easyPer / 100) * total;
     const mediumMarks = (mediumPer / 100) * total;
@@ -203,7 +203,7 @@ const getQuestionPaperByMarks =async(req,res)=>{
            message: 'Question fetched!!' ,
            data:Data
       });
-          // console.log(filteredQuestions)
+          
   } catch (error) {
      res.status(400).json({ success: false, message: error.message});
   }
@@ -306,7 +306,7 @@ const getQuestionPaperbyNumberOFques =async(req,res)=>{
            message: 'Question fetched!!' ,
            data:Data
       });
-          // console.log(filteredQuestions)
+         
   } catch (error) {
      res.status(400).json({ success: false, message: error.message});
   }

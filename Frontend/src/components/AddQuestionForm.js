@@ -5,10 +5,10 @@ import Swal from "sweetalert2";
 const AddQuestionForm = () => {
   const [formData, setFormData] = useState({
     question: '',
-    subject: '',
+    subject: 'Mathematics',
     topic: '',
-    difficulty: '',
-    marks: '',
+    difficulty: 'easy',
+    marks: '1',
   });
 
   const handleChange = (e) => {
@@ -21,7 +21,7 @@ const AddQuestionForm = () => {
 
   const addQuestion = async () => {
     try {
-      const response = await axios.post('https://questionpapergenerater.onrender.com/api/add', formData, {
+      const response = await axios.post('http://localhost:5000/api/add', formData, {
     headers: {
       'Content-Type': 'application/json',
     },
@@ -33,13 +33,12 @@ const AddQuestionForm = () => {
           title: "Success",
           text: "Question inserted Successfully",
       });
-    
       
     } catch (error) {
         Swal.fire({
           icon: "error",
-          title: "Errot",
-          text: "Question inserted Already",
+          title: "Error",
+          text: error.response.data.message || "Something error",
       });
       console.error('Error during API call:', error);
     }
@@ -92,7 +91,6 @@ const AddQuestionForm = () => {
             style={styles.select}
             required
           >
-            <option value="">Select Difficulty</option>
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
@@ -108,7 +106,6 @@ const AddQuestionForm = () => {
             style={styles.select}
             required
           >
-            <option value="">Select Marks</option>
             <option value="1">1 Marks For Easy</option>
             <option value="2">2 Marks For Medium</option>
             <option value="3">5 Marks For Hard</option>
