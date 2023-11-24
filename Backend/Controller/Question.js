@@ -240,11 +240,15 @@ const getQuestionPaperbyNumberOFques =async(req,res)=>{
     const mediumMarks = (mediumPer / 100) * total;
     const hardMarks = (hardPer / 100) * total;
 
-    const hardQuestionMarks = Math.floor(hardMarks/byNumber.hard);
+    const hardQuestionMarks = hardMarks/byNumber.hard;
     const remender1 = hardMarks%byNumber.hard;
-    const mediumQuestionMarks = Math.floor((mediumMarks+ remender1 )/byNumber.medium);
+    const mediumQuestionMarks = (mediumMarks+ remender1 )/byNumber.medium;
     const remender2 = (mediumMarks+ remender1 )%byNumber.medium;
-    const easyQuestionMarks = Math.floor((easyMarks+remender2)/byNumber.easy);
+    const easyQuestionMarks = (easyMarks+remender2)/byNumber.easy;
+
+    if(Math.floor(hardQuestionMarks) !== hardQuestionMarks || Math.floor(mediumQuestionMarks) !== mediumQuestionMarks|| Math.floor(easyQuestionMarks) !== easyQuestionMarks ){
+        throw new Error("Equal marks cannot be divided in questions");
+    }
     
     if(easyQuestionMarks > mediumQuestionMarks || easyQuestionMarks > hardQuestionMarks ){
        throw new Error("Marks of a Easy Question is not Possible greater than Medium or Hard");
