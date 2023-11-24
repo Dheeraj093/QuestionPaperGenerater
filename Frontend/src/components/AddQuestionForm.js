@@ -64,15 +64,11 @@ const AddQuestionForm = () => {
         </div>
         <div style = {styles.row}>
           <label htmlFor="subject" style={styles.label} >Subject:</label>
-          <input
-            type="text"
-            id="subject"
-            name="subject"
-            value={formData.subject}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
+          <select id="subject" name="subject" value={formData.subject} onChange={handleChange} style={styles.input} >
+            <option value="Mathematics">Mathematics</option>
+            <option value="Physics">Physics</option>
+            <option value="Chemistry">Chemistry</option>
+          </select>
         </div>
         <div style = {styles.row}>
           <label htmlFor="topic" style={styles.label}>Topic:</label>
@@ -119,7 +115,7 @@ const AddQuestionForm = () => {
           </select>
         </div>
         <button type="button" onClick={addQuestion} style={styles.submitButton}>
-          Generate Question Paper
+          Add Question
         </button>
         
       </form>

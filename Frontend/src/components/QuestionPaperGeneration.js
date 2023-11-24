@@ -167,15 +167,11 @@ const generateQuestionPaper = async () => {
       <form>
         <div  style = {styles.row}>
           <label htmlFor="subject" style={styles.label}>Subject:</label>
-          <input
-            type="text"
-            id="subject"
-            name="subject"
-            value={criteria.subject}
-            onChange={handleChange}
-            style={styles.input}
-            required
-          />
+          <select id="subject" name="subject" value={criteria.subject} onChange={handleChange} style={styles.input} >
+            <option value="Mathematics">Mathematics</option>
+            <option value="Physics">Physics</option>
+            <option value="Chemistry">Chemistry</option>
+          </select>
         </div>
         <div style = {styles.row}>
           <label htmlFor="totalMarks" style={styles.label} >Total Marks:</label>
