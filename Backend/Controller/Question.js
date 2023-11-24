@@ -2,6 +2,9 @@ const Question = require("../Model/Question");
 
 const addQuestion = async(req,res) =>{
      const { question, subject, topic, difficulty, marks } = req.body;
+     if (!question || !subject || !topic || !difficulty || !marks) {
+      throw new Error("Please Fill All Entry.");
+    }
 
   try {
      const ques = await Question.findOne({ question });
