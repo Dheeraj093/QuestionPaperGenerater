@@ -117,7 +117,7 @@ const generateQuestionPaper = async () => {
     console.log(criteria)
 
     if (criteria.paperType === 'Deafult') {
-      const response = await axios.post('http://localhost:5000/api/getQuestionPaper', criteria, {
+      const response = await axios.post('https://questionpapergenerater.onrender.com/api/getQuestionPaper', criteria, {
         headers: {
           'Content-Type': 'application/json',
         },
